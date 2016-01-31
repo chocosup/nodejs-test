@@ -4,6 +4,7 @@ var request = require('request');
 module.exports = function (coordinates) {
 	if (typeof coordinates === 'string') {
 		var url = 'http://api.openweathermap.org/data/2.5/weather?q=' + coordinates + '&units=metric&APPID=04df9ea1586c30f326ba13d55a8a0c5d';
+		console.log(url);
 		request({
 			url: url,
 			json: true
@@ -11,6 +12,7 @@ module.exports = function (coordinates) {
 			if (error) {
 				console.log('Une erreur s\'est produite.');
 			} else {
+				console.log(body);
 				console.log('Il fait ' + body.main.temp + ' degrés à ' + coordinates + '.');
 			};
 		});

@@ -1,24 +1,64 @@
-var request = require('request');
-var weather = require('./weather.js');
-var argv = require('yargs')
-	.command('loc', 'Specify location', function (yargs) {
-		yargs.options({city: {
-			demand: true,
-			alias:'c',
-			description: 'City name',
-			type: 'string'
-		}}).help('help');
-	})
-	.help('help')
-	.argv;
+// function doWork (input) {
+// 	return new Promise(function (resolve, reject) {
+// 		setTimeout(function () {
+// 			console.log('Done!' + input);
+// 			resolve(input);
+// 		}, 1000);
+// 	});
+// };
 
-if (argv._[0] === "loc") {
-	weather(argv.city);
-} else {
+// doWork('first').then(function (msg) {
+// 	// console.log('second');
+// 	doWork('second');
+// 	return 1;
+// }).then(function (msg) {
+// 	// console.log(msg);
+// });
 
-	var coord = require('./location.js');
-	
-	coord(function (thing) {
-		weather(thing);
+
+function getLocation (works) {
+	return new Promise(function (resolve, reject) {
+		if (works) {
+			resolve('Paris');
+		} else {
+			reject({
+				nb: 1,
+				msg: 'tested error.'
+			});
+		};
 	});
 };
+
+function getWeather (location) {
+	console.log('yo');
+	return new Promise(function (resolve, reject) {
+		resolve('It\'s 18 in ' + location + '.');
+	});
+};
+
+var a = getLocation(true)
+.then(function (location) {
+	return getWeather(location);
+}, function (error) {
+	console.log('Error ' + error.nb + ': ' + error.msg);
+})
+// .then(function (text) {
+// 	console.log(text);
+// });
+
+console.log(a);
+
+
+// var Test = function () {
+// 	this.one = 1;
+// 	this.two = function () {
+// 		this.one = 2;
+// 		return 1;
+// 	};
+// }
+
+// var a = new Test();
+// var b = a.two();
+
+// console.log(a);
+// console.log(b);
