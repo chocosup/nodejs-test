@@ -2,7 +2,7 @@ var express = require('express');
 
 var app = express();
 
-var PORT = process.env.PORT || 8000;
+var PORT = process.env.PORT || 7070;
 
 app.get('/', function (req, res) {
 	res.send('API root.');
